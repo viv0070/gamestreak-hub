@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameStreak Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>🎮 GameStreak Hub</h1>
+        <nav>
+            <a href="#uc-store">UC Deals</a>
+            <a href="#discord">Discord Servers</a>
+            <a href="#tools">PC Tools</a>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h2>Unleash Your Game</h2>
+        <p>Top-up UC at unbeatable prices, join Discord tournaments, and equip your PC like a pro.</p>
+        <a href="#uc-store" class="btn">Explore Now</a>
+    </section>
+
+    <section id="uc-store">
+        <h2>💰 UC Store</h2>
+        <table>
+            <tr><th>UC Amount</th><th>Price</th><th>Buy</th></tr>
+            <tr><td>60 UC</td><td>$0.89</td><td><button>Buy Now</button></td></tr>
+            <tr><td>325 UC</td><td>$3.99</td><td><button>Buy Now</button></td></tr>
+            <tr><td>660 UC</td><td>$6.99</td><td><button>Buy Now</button></td></tr>
+            <tr><td>1800 UC</td><td>$15.49</td><td><button>Buy Now</button></td></tr>
+        </table>
+    </section>
+
+    <section id="discord">
+        <h2>🎤 Discord Tournaments</h2>
+        <p>Join our official Discord servers for custom room scrims, battle royale events, and prize-based matches.</p>
+        <a href="https://discord.gg/yourserver" target="_blank" class="btn">Join Discord</a>
+    </section>
+
+    <section id="tools">
+        <h2>🛠️ Gaming Tools for PC</h2>
+        <ul>
+            <li><a href="#">Aim Assistant v2.3</a> – Helps improve targeting precision</li>
+            <li><a href="#">FPS Booster</a> – Maximize frame rates on low-end PCs</li>
+            <li><a href="#">Latency Fix Patch</a> – Reduces in-game ping spikes</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>© 2025 GameStreak Hub. Powered by Gamers, for Gamers.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+<head>
+    <script type="module">
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+      
+        const firebaseConfig = {
+          apiKey: "YOUR_API_KEY",
+          authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+          projectId: "YOUR_PROJECT_ID",
+          storageBucket: "YOUR_PROJECT_ID.appspot.com",
+          messagingSenderId: "XXXXXX",
+          appId: "YOUR_APP_ID"
+        };
+      
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+      
+        async function placeOrder(ucAmount, price) {
+          try {
+            const docRef = await addDoc(collection(db, "orders"), {
+              uc: ucAmount,
+              price: price,
+              timestamp: new Date().toISOString()
+            });
+            alert("Order placed! Order ID: " + docRef.id);
+          } catch (e) {
+            alert("Error adding order: " + e);
+          }
+        }
+      
+        window.placeOrder = placeOrder;
+      </script>
+</head>
